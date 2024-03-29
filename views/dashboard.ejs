@@ -1,0 +1,30 @@
+<h1 class="mt-4">Dashboard</h1>
+<nav class="navbar">
+    <ul class="nav"> 
+        <li><a href="/dashboard">Dashboard</a></li>
+
+        <li><a href="/compose">Compose</a></li>
+    </ul>
+</nav>
+<p class="lead mb-3">Welcome <%= name %></p>
+    <h3>
+        Please make sure that each title is diffrent from another
+    </h3>
+    <%- include ("partials/messages") %>
+    <div class="home_container">
+        <%post.forEach((e)=>{ %>
+            <div class="pst">
+                <h2> <%= e.title %></h2>
+             <p>
+                <% if (e.content.length > 10) { %>
+                    <%= e.content.substring(0, 10) + "..." %>
+                    <a href="/posts/<%= e.title %>">Read More</a>
+                <% } else { %>
+                    <%= e.content %>
+                <% } %>
+            </p>
+            </div>
+    
+        <%}) %>
+    </div>
+<a href="/users/logout" class="btn btn-primary">Logout</a>
