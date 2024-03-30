@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <ul class="nav"> 
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/compose">Compose</a></li>
+        <li><a href="/notes/common">Common Notes</a></li> <!-- Add this line -->
+        <li><a href="/notes/private">Private Notes</a></li> <!-- Add this line -->
+    </ul>
+</nav>
+<h1>Common Notes</h1>
+    <ul>
+        <% commonNotes.forEach(note => { %>
+            <li><%= note %></li>
+        <% }); %>
+</ul>

@@ -12,6 +12,9 @@ body{
     gap: 10px;
 
 }
+.common_pst{
+    border-bottom: 2px solid purple;
+}
 .pst{
     padding: 10px;
     margin: 2px;
@@ -105,11 +108,35 @@ textarea{
     justify-content: center;
 
 }
+
 button{
     margin: 20px;
     padding: 5px;
     background-color: #336decd9;
     border-radius: 5px;
-    border: 0.1 solid black;
+    border: none;
 }
+
+input[type="radio"] {
+    display: inline;
+    width: 20px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.rdbtn {
+
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    margin-left: 10px;
+    align-items: center;
+} 
+
+.rdbtn label {
+    padding-left: 30px; /* Adjust spacing between indicator and label */
+    vertical-align: middle;
+}
+
+
 

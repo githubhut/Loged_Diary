@@ -12,6 +12,6 @@ const postSchema = new mongoose.Schema({
 postSchema.index({ title: 1, userId: 1 }, { unique: true });
 
 
-const Post = mongoose.model('Post', postSchema);
+const CommonPost = mongoose.model('CommonPost', postSchema);
 
-module.exports = Post;
+module.exports = CommonPost;

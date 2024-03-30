@@ -1,3 +1,5 @@
+
+<h1 class="mt-4">Dashboard</h1>
 <nav class="navbar">
     <ul class="nav"> 
         <li><a href="/dashboard">Dashboard</a></li>
@@ -11,14 +13,15 @@
     Please make sure that each title is different from another
 </h3>
 <%- include ("partials/messages") %>
-<div class="home_container">
+<div class="common_container">
     <% post.forEach((e) => { %>
-        <div class="pst">
+        <div class="common_pst">
             <h2> <%= e.title %></h2>
-            <p>
+            <p><strong>By:</strong> <%= e.userId.name %> (<%= e.userId.email %>)</p>
+            <p><strong>Content: </strong>
                 <% if (e.content.length > 10) { %>
                     <%= e.content.substring(0, 10) + "..." %>
-                    <a href="/posts/<%= e.title %>">Read More</a>
+                    <a href="/common_post/<%= e.title %>">Read More</a>
                 <% } else { %>
                     <%= e.content %>
                 <% } %>
