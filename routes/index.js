@@ -3,7 +3,6 @@ const router = express.Router();
 const {ensureAuthenticated} = require('../config/auth');
 const Posts = require("../models/post");
 const CommonPost = require("../models/commonpost");
-const _ = require("lodash");
 
 router.get("/", (req, res)=>{
     res.render("welcome");
