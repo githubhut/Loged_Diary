@@ -1,10 +1,15 @@
-<nav class="navbar">
-    <ul class="nav"> 
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/compose">Compose</a></li>
-        <li><a href="/common_post">Common Area</a></li>
-    </ul>
-</nav>
+<div class="options-wrapper">
+    <div class="options-header" onclick="toggleOptions()">
+        &#8801; Options
+    </div>
+    <div class="options-content" id="optionsContent">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/common_post">Common Area</a></li>
+            
+        </ul>
+    </div>
+</div>
 
 <p class="lead mb-3">Welcome <%= name %></p>
 <h3>
@@ -26,4 +31,5 @@
         </div>
     <% }) %>
 </div>
+<div class="com"><a  href="/compose">+</a></div>
 <a href="/users/logout" class="rdbtn btn btn-primary">Logout</a>

@@ -1,30 +1,42 @@
-<nav class="navbar">
-    <ul class="nav"> 
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/compose">Compose</a></li>
-        <li><a href="/common_post">Common Area</a></li>
-    </ul>
-</nav>
+<div class="options-wrapper">
+    <div class="options-header" onclick="toggleOptions()">
+        &#8801; Options
+    </div>
+    <div class="options-content" id="optionsContent">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/common_post">Common Area</a></li>
 
-<p class="lead mb-3">Welcome <%= name %></p>
+        </ul>
+    </div>
+</div>
+
+<p class="lead mb-3">Welcome <%= name %>
+</p>
 <h3>
     Please make sure that each title is different from another
 </h3>
 <%- include ("partials/messages") %>
-<div class="common_container">
-    <% post.forEach((e) => { %>
-        <div class="common_pst">
-            <h2> <%= e.title %></h2>
-            <p><strong>By:</strong> <%= e.userId.name %> (<%= e.userId.email %>)</p>
-            <p><strong>Content: </strong>
-                <% if (e.content.length > 10) { %>
-                    <%= e.content.substring(0, 10) + "..." %>
-                    <a href="/common_post/<%= e.title %>">Read More</a>
-                <% } else { %>
-                    <%= e.content %>
-                <% } %>
-            </p>
-        </div>
-    <% }) %>
-</div>
-<a href="/users/logout" class="rdbtn btn btn-primary">Logout</a>
+    <div class="common_container">
+        <% post.forEach((e)=> { %>
+            <div class="common_pst">
+                <h2>
+                    <%= e.title %>
+                </h2>
+                <p><strong>By:</strong>
+                    <%= e.userId.name %> (<%= e.userId.email %>)
+                </p>
+                <p><strong>Content: </strong>
+                    <% if (e.content.length> 10) { %>
+                        <%= e.content.substring(0, 10) + "..." %>
+                            <a href="/common_post/<%= e.title %>">Read More</a>
+                            <% } else { %>
+                                <%= e.content %>
+                                    <% } %>
+                </p>
+            </div>
+            <% }) %>
+
+    </div>
+    <div class="com"><a type="button" href="/compose">+</a></div>
+    <a href="/users/logout" class="rdbtn btn btn-primary">Logout</a>

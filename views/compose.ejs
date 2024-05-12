@@ -1,10 +1,15 @@
-<nav class="navbar">
-    <ul class="nav"> 
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/compose">Compose</a></li>
-        <li><a href="/common_post">Common Area</a></li>
-    </ul>
-</nav>
+<div class="options-wrapper">
+    <div class="options-header" onclick="toggleOptions()">
+        &#8801; Options
+    </div>
+    <div class="options-content" id="optionsContent">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/common_post">Common Area</a></li>
+
+        </ul>
+    </div>
+</div>
 
 <h3>Compose Your Post</h3>
 <%- include ("partials/messages") %>
