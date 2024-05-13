@@ -116,6 +116,7 @@ h3 {
 label {
     font-size: larger;
     display: block;
+    margin-right: 10px;
 }
 
 input {

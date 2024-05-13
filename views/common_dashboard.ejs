@@ -19,7 +19,7 @@
 <%- include ("partials/messages") %>
     <div class="common_container">
         <% post.forEach((e)=> { %>
-            <div class="common_pst">
+            <div class="common_pst" ondblclick="updatePost('<%= e._id %>')">
                 <h2>
                     <%= e.title %>
                 </h2>

@@ -18,7 +18,7 @@
 <%- include ("partials/messages") %>
 <div class="home_container">
     <% post.forEach((e) => { %>
-        <div class="pst">
+        <div class="pst" ondblclick="update_privatePost('<%= e._id %>')">
             <h2> <%= e.title %></h2>
             <p>
                 <% if (e.content.length > 10) { %>

@@ -3,6 +3,7 @@ const router = express.Router();
 const {ensureAuthenticated} = require('../config/auth');
 const Posts = require("../models/post");
 const CommonPost = require("../models/commonpost");
+const User = require("../models/user")
 
 router.get("/", (req, res)=>{
     res.render("welcome");
@@ -115,6 +116,136 @@ router.get("/common_post/:postName", ensureAuthenticated, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+router.get('/updatePost/:postId', ensureAuthenticated, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+
+        const post = await CommonPost.findById(postId);
+        if (!post) {
+            req.flash('error_msg', 'Post not found');
+            res.redirect('/common_post');
+        }
+
+        else if (post.userId.toString() !== userId.toString()) {
+            req.flash('error_msg', 'You are not authorized to update this post');
+            res.redirect('/common_post');
+        }
+
+        else res.render('updateCommon', { post });
+    } catch (error) {
+        req.flash('error_msg', "Cannot Update: "+error.name);
+        console.error('Error rendering update form:', error);
+        res.redirect('/common_post');
+    }
+});
+
+router.post('/updatePost/:postId', ensureAuthenticated, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+        const { title, content } = req.body;
+
+        const post = await CommonPost.findById(postId);
+        if (!post) {
+            req.flash('error_msg', 'Post not found');
+            res.redirect('/common_post');
+        }
+
+        if (post.userId.toString() !== userId.toString()) {
+            req.flash('error_msg', 'You are not authorized to update this post');
+            res.redirect('/common_post');
+        }
+
+        const newpost = await CommonPost.find({ title: title });
+
+        if(newpost.length > 1 || (newpost.length === 1 && postId.toString() != newpost[0]._id.toString())){
+            req.flash('error_msg', 'Title Already Exists');
+            res.redirect('/common_post');
+        }
+        else {
+            post.title = title;
+            post.content = content;
+
+            await post.save();
+    
+            req.flash('success_msg', 'Post updated successfully');
+            res.redirect('/common_post');
+        }
+    } catch (error) {
+        req.flash('error_msg', "Cannot Update: "+error.name);
+        console.error('Error updating post:', error);
+        res.redirect('/common_post');
+    }
+});
+
+
+
+router.get('/updatePrivatePost/:postId', ensureAuthenticated, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+
+        const post = await Posts.findById(postId);
+        if (!post) {
+            req.flash('error_msg', 'Post not found');
+            res.redirect('/dashboard');
+        }
+
+        else if (post.userId.toString() !== userId.toString()) {
+            req.flash('error_msg', 'You are not authorized to update this post');
+            res.redirect('/dashboard');
+        }
+
+        else res.render('updatePrivate', { post });
+    } catch (error) {
+        req.flash('error_msg', "Cannot Update: "+error.name);
+        console.error('Error rendering update form:', error);
+        res.redirect('/dashboard');
+    }
+});
+
+router.post('/updatePrivatePost/:postId', ensureAuthenticated, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.user._id;
+        const { title, content } = req.body;
+
+        const post = await Posts.findById(postId);
+        if (!post) {
+            req.flash('error_msg', 'Post not found');
+            res.redirect('/dashboard');
+        }
+
+        if (post.userId.toString() !== userId.toString()) {
+            req.flash('error_msg', 'You are not authorized to update this post');
+            res.redirect('/dashboard');
+        }
+        const newpost = await Posts.find({ title: title });
+
+        if(newpost.length > 1 || (newpost.length === 1 && postId.toString() != newpost[0]._id.toString())){
+            req.flash('error_msg', 'Title Already Exists');
+            res.redirect('/dashboard');
+        }
+        else{
+
+            post.title = title;
+            post.content = content;
+            await post.save();
+            req.flash('success_msg', 'Post updated successfully');
+            res.redirect('/dashboard');
+        }
+
+    } catch (error) {
+        req.flash('error_msg', "Cannot Update: "+error.name);
+        console.error('Error updating post:', error);
+        res.redirect('/dashboard');
+    }
+});
+
 
 
 module.exports = router;
