@@ -78,9 +78,9 @@ router.post("/compose", ensureAuthenticated, async (req, res) => {
 
 router.get("/posts/:postName", ensureAuthenticated, async (req, res)=>{
     const requiredTitle = req.params.postName;
-
+    const userid = req.user._id;
     try {
-        const Post = await Posts.findOne({ title: requiredTitle });
+        const Post = await Posts.findOne({ title: requiredTitle, userId: userid });
 
         if (Post) {
             res.render("post", {
@@ -99,9 +99,8 @@ router.get("/posts/:postName", ensureAuthenticated, async (req, res)=>{
 
 router.get("/common_post/:postName", ensureAuthenticated, async (req, res) => {
     const requiredTitle = req.params.postName;
-
     try {
-        const commonPost = await CommonPost.findOne({ title: requiredTitle });
+        const commonPost = await CommonPost.findOne({ title: requiredTitle});
 
         if (commonPost) {
             res.render("post", {
@@ -224,8 +223,7 @@ router.post('/updatePrivatePost/:postId', ensureAuthenticated, async (req, res) 
             req.flash('error_msg', 'You are not authorized to update this post');
             res.redirect('/dashboard');
         }
-        const newpost = await Posts.find({ title: title });
-
+        const newpost = await Posts.find({ title: title , userId: userId});
         if(newpost.length > 1 || (newpost.length === 1 && postId.toString() != newpost[0]._id.toString())){
             req.flash('error_msg', 'Title Already Exists');
             res.redirect('/dashboard');
