@@ -29,7 +29,7 @@
                 <p><strong>Content: </strong>
                     <% if (e.content.length> 10) { %>
                         <%= e.content.substring(0, 10) + "..." %>
-                            <a href="/common_post/<%= e.title %>">Read More</a>
+                            <a href="/common_post/<%= e._id %>">Read More</a>
                             <% } else { %>
                                 <%= e.content %>
                                     <% } %>

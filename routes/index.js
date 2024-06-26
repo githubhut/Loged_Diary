@@ -77,10 +77,10 @@ router.post("/compose", ensureAuthenticated, async (req, res) => {
 
 
 router.get("/posts/:postName", ensureAuthenticated, async (req, res)=>{
-    const requiredTitle = req.params.postName;
+    const requiredId = req.params.postName;
     const userid = req.user._id;
     try {
-        const Post = await Posts.findOne({ title: requiredTitle, userId: userid });
+        const Post = await Posts.findOne({ _id: requiredId, userId: userid });
 
         if (Post) {
             res.render("post", {
@@ -88,7 +88,7 @@ router.get("/posts/:postName", ensureAuthenticated, async (req, res)=>{
                 content: Post.content
             });
         } else {
-            res.status(404).send("Common post not found");
+            res.status(404).send("Private post not found");
         }
     } catch (error) {
         console.error(error);
@@ -98,9 +98,9 @@ router.get("/posts/:postName", ensureAuthenticated, async (req, res)=>{
 })
 
 router.get("/common_post/:postName", ensureAuthenticated, async (req, res) => {
-    const requiredTitle = req.params.postName;
+    const requiredId = req.params.postName;
     try {
-        const commonPost = await CommonPost.findOne({ title: requiredTitle});
+        const commonPost = await CommonPost.findOne({ _id: requiredId});
 
         if (commonPost) {
             res.render("post", {

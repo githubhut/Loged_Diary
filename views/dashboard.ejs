@@ -23,7 +23,7 @@
             <p>
                 <% if (e.content.length > 10) { %>
                     <%= e.content.substring(0, 10) + "..." %>
-                    <a href="/posts/<%= e.title %>">Read More</a>
+                    <a href="/posts/<%= e._id %>">Read More</a>
                 <% } else { %>
                     <%= e.content %>
                 <% } %>
